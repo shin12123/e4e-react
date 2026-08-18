@@ -108,8 +108,8 @@ function Marquee() {
   return (
     <div className="marquee" aria-label="Принципи роботи компанії">
       <div className="marquee-track">
-        {[0, 1].map((group) => (
-          <div className="marquee-group" aria-hidden={group === 1} key={group}>
+        {[0, 1, 2, 3, 4, 5].map((group) => (
+          <div className="marquee-group" aria-hidden={group !== 0} key={group}>
             {items.map((item) => (
               <React.Fragment key={`${group}-${item}`}>
                 <span>{item}</span><i aria-hidden="true" />
@@ -200,7 +200,9 @@ function HomePage() {
       <section className="record-section">
         <div className="container">
           <article className="record-card" data-reveal>
-            <div className="record-live"><span />Live · Online</div>
+            <div className="record-energy" aria-hidden="true">
+              <span /><span /><span /><span /><span /><span /><span />
+            </div>
             <div className="record-main">
               <p>Торговий майданчик</p>
               <h2>Оптова торгівля електроенергією в реальному часі</h2>
