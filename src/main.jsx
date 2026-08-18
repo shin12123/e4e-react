@@ -9,14 +9,13 @@ import aboutTeamMobile from "./assets/images/about-team-960.webp";
 import aboutTeamDesktop from "./assets/images/about-team-1920.webp";
 import documentsMobile from "./assets/images/documents-contract-960.webp";
 import documentsDesktop from "./assets/images/documents-contract-1920.webp";
-import gridPrimaryMobile from "./assets/images/grid-primary-960.webp";
-import gridPrimaryDesktop from "./assets/images/grid-primary-1920.webp";
 import gridSecondaryMobile from "./assets/images/grid-secondary-960.webp";
 import gridSecondaryDesktop from "./assets/images/grid-secondary-1920.webp";
 import kyivMobile from "./assets/images/kyiv-960.webp";
 import kyivDesktop from "./assets/images/kyiv-1920.webp";
 import windEnergyMobile from "./assets/images/wind-energy-960.webp";
 import windEnergyDesktop from "./assets/images/wind-energy-1920.webp";
+import ElectricAura from "./components/ElectricAura";
 import "./styles.css";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
@@ -27,7 +26,6 @@ const phoneHref = "+380991461002";
 const address = "Київ, 04215, вул. Світлицького, 35, прим. 108/4 в літ. «З»";
 
 const pageImages = {
-  home: { mobile: gridPrimaryMobile, desktop: gridPrimaryDesktop },
   about: { mobile: aboutTeamMobile, desktop: aboutTeamDesktop },
   services: { mobile: gridSecondaryMobile, desktop: gridSecondaryDesktop },
   documents: { mobile: documentsMobile, desktop: documentsDesktop },
@@ -225,7 +223,7 @@ function HomePage() {
   return (
     <>
       <section className="home-hero">
-        <ResponsiveImage className="hero-image" source={pageImages.home} priority />
+        <ElectricAura className="hero-aura" />
         <div className="hero-wash" />
         <div className="container home-hero-inner">
           <p className="eyebrow hero-reveal">Енергія для відповідального бізнесу</p>
@@ -697,7 +695,7 @@ function App() {
   return (
     <div ref={root} className="site-shell">
       <Header />
-      <main className="overflow-x-hidden w-full max-w-full">
+      <main className="w-full max-w-full">
         <Page />
       </main>
       <Footer />
