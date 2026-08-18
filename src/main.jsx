@@ -3,8 +3,20 @@ import { createRoot } from "react-dom/client";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
-import logoImage from "../logo/logo.png";
-import daniilGanzinaLogo from "../logo/daniil-ganzina-logo black theme.png";
+import logoImage from "../logo/logo-optimized.webp";
+import daniilGanzinaLogo from "../logo/daniil-ganzina-logo-black.webp";
+import aboutTeamMobile from "./assets/images/about-team-960.webp";
+import aboutTeamDesktop from "./assets/images/about-team-1920.webp";
+import documentsMobile from "./assets/images/documents-contract-960.webp";
+import documentsDesktop from "./assets/images/documents-contract-1920.webp";
+import gridPrimaryMobile from "./assets/images/grid-primary-960.webp";
+import gridPrimaryDesktop from "./assets/images/grid-primary-1920.webp";
+import gridSecondaryMobile from "./assets/images/grid-secondary-960.webp";
+import gridSecondaryDesktop from "./assets/images/grid-secondary-1920.webp";
+import kyivMobile from "./assets/images/kyiv-960.webp";
+import kyivDesktop from "./assets/images/kyiv-1920.webp";
+import windEnergyMobile from "./assets/images/wind-energy-960.webp";
+import windEnergyDesktop from "./assets/images/wind-energy-1920.webp";
 import "./styles.css";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
@@ -13,6 +25,15 @@ const email = "e4etrading26@gmail.com";
 const phoneDisplay = "+38(099)-146-10-02";
 const phoneHref = "+380991461002";
 const address = "Київ, 04215, вул. Світлицького, 35, прим. 108/4 в літ. «З»";
+
+const pageImages = {
+  home: { mobile: gridPrimaryMobile, desktop: gridPrimaryDesktop },
+  about: { mobile: aboutTeamMobile, desktop: aboutTeamDesktop },
+  services: { mobile: gridSecondaryMobile, desktop: gridSecondaryDesktop },
+  documents: { mobile: documentsMobile, desktop: documentsDesktop },
+  contact: { mobile: kyivMobile, desktop: kyivDesktop },
+  wind: { mobile: windEnergyMobile, desktop: windEnergyDesktop }
+};
 
 const navigation = [
   ["index.html", "Головна"],
@@ -80,10 +101,25 @@ function ArrowLink({ to, children, variant = "dark", external = false }) {
   );
 }
 
-function PageHero({ title, eyebrow, text, image = "energy-market-grid" }) {
+function ResponsiveImage({ source, className, alt = "", priority = false, sizes = "100vw" }) {
+  return (
+    <img
+      className={className}
+      src={source.desktop}
+      srcSet={`${source.mobile} 960w, ${source.desktop} 1920w`}
+      sizes={sizes}
+      alt={alt}
+      loading={priority ? "eager" : "lazy"}
+      fetchPriority={priority ? "high" : "auto"}
+      decoding="async"
+    />
+  );
+}
+
+function PageHero({ title, eyebrow, text, image }) {
   return (
     <section className="page-hero">
-      <img className="hero-image" src={`https://picsum.photos/seed/${image}/1800/1100`} alt="" />
+      <ResponsiveImage className="hero-image" source={image} priority />
       <div className="hero-wash" />
       <div className="container page-hero-inner">
         <p className="eyebrow hero-reveal">{eyebrow}</p>
@@ -189,7 +225,7 @@ function HomePage() {
   return (
     <>
       <section className="home-hero">
-        <img className="hero-image" src="https://picsum.photos/seed/modern-energy-flow/2000/1300" alt="" />
+        <ResponsiveImage className="hero-image" source={pageImages.home} priority />
         <div className="hero-wash" />
         <div className="container home-hero-inner">
           <p className="eyebrow hero-reveal">Енергія для відповідального бізнесу</p>
@@ -254,7 +290,7 @@ function HomePage() {
               <p>Забезпечувати надійне постачання електроенергії, підтримуючи високі стандарти якості, прозорості та відповідальності.</p>
             </article>
             <article className="story-card story-card-image" data-reveal>
-              <img src="https://picsum.photos/seed/european-energy-architecture/1200/900" alt="Сучасна енергетична інфраструктура" />
+              <ResponsiveImage source={pageImages.wind} sizes="(min-width: 980px) 48vw, 100vw" alt="Вітрова енергетика у Європі" />
               <div className="story-overlay">
                 <p>ЄДРПОУ 46363402 · КВЕД 35.14</p>
                 <ArrowLink to={href("about.html")} variant="light">Детальніше про компанію</ArrowLink>
@@ -325,7 +361,7 @@ function PrinciplesCarousel() {
 function AboutPage() {
   return (
     <>
-      <PageHero eyebrow="Про нас" title="Надійний партнер у сфері енергетики" text="Клієнтоорієнтований бізнес, який поєднує професійну експертизу, прозорість і відповідальність." image="energy-partnership" />
+      <PageHero eyebrow="Про нас" title="Надійний партнер у сфері енергетики" text="Клієнтоорієнтований бізнес, який поєднує професійну експертизу, прозорість і відповідальність." image={pageImages.about} />
 
       <section className="section-space">
         <div className="container">
@@ -412,12 +448,12 @@ function ServicesPage() {
   ];
   return (
     <>
-      <PageHero eyebrow="КВЕД 35.14" title="Трейдерська діяльність" text="Господарська діяльність з перепродажу електроенергії на ринку України та Європи." image="electric-trading" />
+      <PageHero eyebrow="КВЕД 35.14" title="Трейдерська діяльність" text="Господарська діяльність з перепродажу електроенергії на ринку України та Європи." image={pageImages.services} />
 
       <section className="section-space direction-section">
         <div className="container direction-grid">
           <div className="direction-image" data-reveal>
-            <img src="https://picsum.photos/seed/energy-control-room/1300/1100" alt="Сучасний простір управління енергією" />
+            <ResponsiveImage source={pageImages.wind} sizes="(min-width: 980px) 50vw, 100vw" alt="Вітрові електростанції у морі" />
           </div>
           <div className="direction-copy" data-reveal>
             <p className="eyebrow">Напрям роботи</p>
@@ -489,7 +525,7 @@ function DocumentsPage() {
   ];
   return (
     <>
-      <PageHero eyebrow="Правова основа" title="Нормативні документи" text="Діяльність компанії регулюється законодавством України щодо ринку електричної енергії." image="law-and-energy" />
+      <PageHero eyebrow="Правова основа" title="Нормативні документи" text="Діяльність компанії регулюється законодавством України щодо ринку електричної енергії." image={pageImages.documents} />
       <section className="section-space documents-section">
         <div className="container documents-grid">
           <DocumentList title="Закони України" items={laws} />
@@ -532,7 +568,7 @@ function ContactPage() {
   };
   return (
     <>
-      <PageHero eyebrow="Будемо на зв'язку" title="Контакти" text="Звертайтеся з питаннями щодо консультації, умов співпраці та індивідуальної пропозиції." image="kyiv-business-energy" />
+      <PageHero eyebrow="Будемо на зв'язку" title="Контакти" text="Звертайтеся з питаннями щодо консультації, умов співпраці та індивідуальної пропозиції." image={pageImages.contact} />
 
       <section className="section-space contact-section">
         <div className="container contact-layout">
