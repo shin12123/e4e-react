@@ -4,6 +4,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import logoImage from "../logo/logo.png";
+import daniilGanzinaLogo from "../logo/daniil-ganzina-logo black theme.png";
 import "./styles.css";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
@@ -170,6 +171,10 @@ function Footer() {
       <div className="container footer-bottom">
         <p>© 2026 ТОВ «Е4Е ТРЕЙДИНГ»</p>
         <p>Енергія відповідального партнерства</p>
+        <div className="footer-credit">
+          <span>created by</span>
+          <img src={daniilGanzinaLogo} alt="Daniil Ganzina" />
+        </div>
       </div>
     </footer>
   );
