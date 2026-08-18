@@ -73,7 +73,9 @@ img { display: block; max-width: 100%; }
 
 .button { min-height: 58px; padding: 9px 11px 9px 22px; border: 1px solid transparent; border-radius: 12px; display: inline-flex; align-items: center; gap: 22px; font-size: 14px; font-weight: 700; transition: transform .3s ease, background .3s ease, color .3s ease, border-color .3s ease; cursor: pointer; }
 .button:hover { transform: translateY(-3px); }
-.button-arrow { width: 38px; height: 38px; flex: 0 0 38px; display: grid; place-items: center; border-radius: 9px; transition: transform .35s ease; }
+.button-arrow { position: relative; width: 38px; height: 38px; flex: 0 0 38px; display: grid; place-items: center; border-radius: 9px; transition: transform .35s ease; }
+.button-arrow::before, .document-arrow::before { content: ""; position: absolute; top: 50%; left: 50%; width: 9px; height: 9px; border-top: 1.7px solid currentColor; border-right: 1.7px solid currentColor; transform: translate(-16%, -82%); }
+.button-arrow::after, .document-arrow::after { content: ""; position: absolute; top: 50%; left: 50%; width: 14px; height: 1.7px; border-radius: 999px; background: currentColor; transform: translate(-58%, -5%) rotate(-45deg); }
 .button:hover .button-arrow { transform: rotate(45deg); }
 .button-lime { background: var(--lime); color: var(--ink); }
 .button-lime .button-arrow { background: var(--ink); color: #fff; }
@@ -258,7 +260,7 @@ img { display: block; max-width: 100%; }
 .document-link:hover { padding-left: 12px; }
 .document-index { color: #737870; font-size: 11px; }
 .document-link p { margin: 0; font-size: 17px; line-height: 1.55; }
-.document-arrow { width: 34px; height: 34px; border: 1px solid var(--line); border-radius: 50%; display: grid; place-items: center; color: var(--ink); font-size: 13px; transition: color .3s ease, background .3s ease, transform .3s ease; }
+.document-arrow { position: relative; width: 34px; height: 34px; border: 1px solid var(--line); border-radius: 50%; display: grid; place-items: center; color: var(--ink); transition: color .3s ease, background .3s ease, transform .3s ease; }
 .document-link:hover .document-arrow { background: var(--ink); color: var(--lime); transform: rotate(45deg); }
 
 .contact-section { background: #f3f1eb; }

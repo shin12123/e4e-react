@@ -74,7 +74,7 @@ function ArrowLink({ to, children, variant = "dark", external = false }) {
   return (
     <a className={`button button-${variant}`} href={to} {...(external ? { target: "_blank", rel: "noreferrer" } : {})}>
       <span>{children}</span>
-      <span className="button-arrow" aria-hidden="true">↗</span>
+      <span className="button-arrow" aria-hidden="true" />
     </a>
   );
 }
@@ -504,7 +504,7 @@ function DocumentList({ title, items }) {
             <a className="document-link" href={item.url} target="_blank" rel="noreferrer">
               <span className="document-index">{String(index + 1).padStart(2, "0")}</span>
               <p>{item.title}</p>
-              <span className="document-arrow" aria-hidden="true">↗</span>
+              <span className="document-arrow" aria-hidden="true" />
             </a>
           </article>
         ))}
@@ -559,7 +559,7 @@ function ContactPage() {
                 <span>Погоджуюся на обробку персональних даних.</span>
               </label>
             </div>
-            <button className="button button-lime submit-button" type="submit"><span>Надіслати повідомлення</span><span className="button-arrow">↗</span></button>
+            <button className="button button-lime submit-button" type="submit"><span>Надіслати повідомлення</span><span className="button-arrow" aria-hidden="true" /></button>
             {sent && <p className="form-note" role="status">Повідомлення підготовлено у вашому поштовому клієнті.</p>}
           </form>
         </div>
