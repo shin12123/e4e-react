@@ -3,6 +3,7 @@ import { createRoot } from "react-dom/client";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
+import logoImage from "../logo/logo.png";
 import "./styles.css";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
@@ -27,7 +28,7 @@ const href = (file) => `${import.meta.env.BASE_URL}${file}`;
 function Brand({ light = false }) {
   return (
     <a className={`brand ${light ? "brand-light" : ""}`} href={href("index.html")} aria-label="Е4Е ТРЕЙДИНГ — головна">
-      <span className="brand-mark">E4E</span>
+      <span className="brand-mark"><img src={logoImage} alt="" /></span>
       <span className="brand-copy">
         <strong>ТРЕЙДИНГ</strong>
         <small>E4E TRADING</small>
