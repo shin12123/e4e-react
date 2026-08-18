@@ -295,6 +295,7 @@ img { display: block; max-width: 100%; }
   .desktop-nav a { padding: 10px 0; font-size: 16px; }
   .desktop-nav a::after { display: none; }
   .mobile-phone { display: block; }
+  .header-actions { margin-left: auto; }
   .menu-button { display: block; }
   .footer-top { grid-template-columns: 1.4fr 1fr 1fr; }
   .footer-contacts { grid-column: 2 / -1; }
