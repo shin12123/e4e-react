@@ -4,7 +4,6 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import logoImage from "../logo/logo-optimized.webp";
-import daniilGanzinaLogo from "../logo/daniil-ganzina-logo-black.webp";
 import aboutTeamMobile from "./assets/images/about-team-960.webp";
 import aboutTeamDesktop from "./assets/images/about-team-1920.webp";
 import documentsMobile from "./assets/images/documents-contract-960.webp";
@@ -16,6 +15,7 @@ import kyivDesktop from "./assets/images/kyiv-1920.webp";
 import windEnergyMobile from "./assets/images/wind-energy-960.webp";
 import windEnergyDesktop from "./assets/images/wind-energy-1920.webp";
 import ElectricAura from "./components/ElectricAura";
+import AnimatedFooterLogo from "./components/AnimatedFooterLogo";
 import "./styles.css";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
@@ -176,6 +176,8 @@ function CTA({ title, copy, primary = "Залишити заявку", secondary
 }
 
 function Footer() {
+  const [isFooterBottomLight, setIsFooterBottomLight] = useState(false);
+
   return (
     <footer className="site-footer">
       <div className="container footer-top">
@@ -202,12 +204,12 @@ function Footer() {
           <p>Пн–пт 09:00–18:00</p>
         </div>
       </div>
-      <div className="container footer-bottom">
+      <div className={`container footer-bottom${isFooterBottomLight ? " is-light" : ""}`}>
         <p>© 2026 ТОВ «Е4Е ТРЕЙДИНГ»</p>
         <p>Енергія відповідального партнерства</p>
         <div className="footer-credit">
           <span>created by</span>
-          <img src={daniilGanzinaLogo} alt="Daniil Ganzina" />
+          <AnimatedFooterLogo onThemeChange={setIsFooterBottomLight} />
         </div>
       </div>
     </footer>
