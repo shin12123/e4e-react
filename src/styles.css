@@ -309,6 +309,15 @@ h1, h2, h3 { text-wrap: balance; }
 .registration-primary h3, .document-link p, .contact-details dd, .direct-contact a,
 .footer-column a, .footer-column p { overflow-wrap: anywhere; }
 
+@media (min-width: 901px) {
+  .home-hero .hero-actions { gap: 14px; margin-top: 46px; }
+  .home-hero .hero-actions .button { min-height: 64px; padding: 10px 12px 10px 26px; gap: 26px; border-radius: 14px; font-size: 15px; }
+  .home-hero .hero-actions .button-arrow { width: 42px; height: 42px; flex-basis: 42px; border-radius: 10px; }
+  .home-hero .hero-actions .button-arrow::before { width: 11px; height: 11px; }
+  .cta-actions .button-arrow::before,
+  .submit-button .button-arrow::before { width: 11px; height: 11px; }
+}
+
 @media (min-width: 1800px) {
   .container { width: min(100% - 96px, 1560px); }
   .site-header { inset: clamp(20px, .86vw, 27.5px) 0 auto; }
