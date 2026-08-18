@@ -1,76 +1,103 @@
-import { useLayoutEffect, useRef, useState } from "react";
+import { useLayoutEffect, useRef } from "react";
 import lottie from "lottie-web/build/player/lottie_light";
-import animationData from "../../logo/daniil-ganzina-logo-wave-only-dark-site-reverse.json";
+import animationData from "../../logo/daniil-ganzina-logo-light-theme-no-color-wave.json";
 
-export default function AnimatedFooterLogo({ onThemeChange }) {
+export default function AnimatedFooterLogo() {
   const containerRef = useRef(null);
   const animationRef = useRef(null);
+  const isReadyRef = useRef(false);
   const isAnimatingRef = useRef(false);
-  const isAtEndRef = useRef(false);
-  const directionRef = useRef(1);
-  const [isAnimating, setIsAnimating] = useState(false);
+  const hasPlayedRef = useRef(false);
 
   useLayoutEffect(() => {
     if (!containerRef.current) return undefined;
+
+    isReadyRef.current = false;
+    isAnimatingRef.current = false;
+    hasPlayedRef.current = false;
+
+    let observer = null;
 
     const animation = lottie.loadAnimation({
       container: containerRef.current,
       renderer: "svg",
       loop: false,
       autoplay: false,
-      animationData,
+      animationData: JSON.parse(JSON.stringify(animationData)),
       rendererSettings: {
         preserveAspectRatio: "xMidYMid meet",
       },
     });
 
     animationRef.current = animation;
+    animation.setSubframe(false);
+    animation.pause();
     animation.goToAndStop(0, true);
 
-    const handleComplete = () => {
-      const completedForward = directionRef.current === 1;
-      const restingFrame = completedForward ? Math.max(0, animation.totalFrames - 1) : 0;
+    const playOnce = () => {
+      if (!animation.isLoaded || isAnimatingRef.current || hasPlayedRef.current) return;
 
-      animation.goToAndStop(restingFrame, true);
-      isAtEndRef.current = completedForward;
-      isAnimatingRef.current = false;
-      setIsAnimating(false);
+      observer?.disconnect();
+
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        animation.goToAndStop(Math.max(0, animation.totalFrames - 1), true);
+        hasPlayedRef.current = true;
+        return;
+      }
+
+      isAnimatingRef.current = true;
+      animation.setDirection(1);
+      animation.goToAndPlay(0, true);
     };
 
+    const handleComplete = () => {
+      animation.goToAndStop(Math.max(0, animation.totalFrames - 1), true);
+      hasPlayedRef.current = true;
+      isAnimatingRef.current = false;
+    };
+
+    const handleReady = () => {
+      if (isReadyRef.current) return;
+
+      animation.pause();
+      animation.setDirection(1);
+      animation.goToAndStop(0, true);
+      isReadyRef.current = true;
+
+      if (!("IntersectionObserver" in window)) {
+        playOnce();
+        return;
+      }
+
+      observer = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting && entry.intersectionRatio >= 0.7) playOnce();
+        },
+        { threshold: [0.7] },
+      );
+      observer.observe(containerRef.current);
+    };
+
+    animation.addEventListener("DOMLoaded", handleReady);
     animation.addEventListener("complete", handleComplete);
+    if (animation.isLoaded) handleReady();
 
     return () => {
+      observer?.disconnect();
+      animation.removeEventListener("DOMLoaded", handleReady);
       animation.removeEventListener("complete", handleComplete);
       animation.destroy();
       animationRef.current = null;
     };
   }, []);
 
-  const handleClick = () => {
-    const animation = animationRef.current;
-    if (!animation || isAnimatingRef.current) return;
-
-    const direction = isAtEndRef.current ? -1 : 1;
-    const startingFrame = direction === 1 ? 0 : Math.max(0, animation.totalFrames - 1);
-
-    isAnimatingRef.current = true;
-    directionRef.current = direction;
-    setIsAnimating(true);
-    onThemeChange?.(direction === 1);
-    animation.goToAndStop(startingFrame, true);
-    animation.setDirection(direction);
-    animation.play();
-  };
-
   return (
-    <button
-      type="button"
+    <span
       className="footer-lottie-button"
-      onClick={handleClick}
-      disabled={isAnimating}
-      aria-label="Daniil Ganzina — змінити тему логотипа"
+      role="img"
+      aria-label="Daniil Ganzina"
     >
       <span ref={containerRef} className="footer-lottie-logo" aria-hidden="true" />
-    </button>
+    </span>
   );
 }

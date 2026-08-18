@@ -176,8 +176,6 @@ function CTA({ title, copy, primary = "Залишити заявку", secondary
 }
 
 function Footer() {
-  const [isFooterBottomLight, setIsFooterBottomLight] = useState(false);
-
   return (
     <footer className="site-footer">
       <div className="container footer-top">
@@ -204,12 +202,12 @@ function Footer() {
           <p>Пн–пт 09:00–18:00</p>
         </div>
       </div>
-      <div className={`container footer-bottom${isFooterBottomLight ? " is-light" : ""}`}>
+      <div className="container footer-bottom">
         <p>© 2026 ТОВ «Е4Е ТРЕЙДИНГ»</p>
         <p>Енергія відповідального партнерства</p>
         <div className="footer-credit">
           <span>created by</span>
-          <AnimatedFooterLogo onThemeChange={setIsFooterBottomLight} />
+          <AnimatedFooterLogo />
         </div>
       </div>
     </footer>
