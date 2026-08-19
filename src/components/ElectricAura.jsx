@@ -139,7 +139,6 @@ export default function ElectricAura({ className = "" }) {
     const draw = (now) => {
       frame = 0;
       if (!inView || document.hidden) return;
-      resize();
       gl.uniform2f(resolution, canvas.width, canvas.height);
       gl.uniform1f(time, reduceMotion ? 0 : (now - startedAt) / 1000);
       gl.drawArrays(gl.TRIANGLES, 0, 3);
@@ -150,7 +149,12 @@ export default function ElectricAura({ className = "" }) {
       if (!frame && inView && !document.hidden) frame = requestAnimationFrame(draw);
     };
 
-    const resizeObserver = new ResizeObserver(requestDraw);
+    const handleResize = () => {
+      resize();
+      requestDraw();
+    };
+
+    const resizeObserver = new ResizeObserver(handleResize);
     resizeObserver.observe(canvas);
     const intersectionObserver = new IntersectionObserver(([entry]) => {
       inView = entry?.isIntersecting ?? true;
@@ -162,6 +166,7 @@ export default function ElectricAura({ className = "" }) {
     });
     intersectionObserver.observe(canvas);
     document.addEventListener("visibilitychange", requestDraw);
+    resize();
     requestDraw();
 
     return () => {

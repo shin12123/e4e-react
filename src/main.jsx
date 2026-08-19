@@ -19,6 +19,7 @@ import AnimatedFooterLogo from "./components/AnimatedFooterLogo";
 import "./styles.css";
 
 gsap.registerPlugin(ScrollTrigger, useGSAP);
+ScrollTrigger.config({ ignoreMobileResize: true });
 
 const email = "e4etrading26@gmail.com";
 const phoneDisplay = "+38(099)-146-10-02";
