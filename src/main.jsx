@@ -15,6 +15,7 @@ import kyivDesktop from "./assets/images/kyiv-1920.webp";
 import windEnergyMobile from "./assets/images/wind-energy-960.webp";
 import windEnergyDesktop from "./assets/images/wind-energy-1920.webp";
 import ElectricAura from "./components/ElectricAura";
+import GrayPlasmaBackground from "./components/GrayPlasmaBackground";
 import AnimatedFooterLogo from "./components/AnimatedFooterLogo";
 import "./styles.css";
 
@@ -25,6 +26,8 @@ const email = "e4etrading26@gmail.com";
 const phoneDisplay = "+38(099)-146-10-02";
 const phoneHref = "+380991461002";
 const address = "Київ, 04215, вул. Світлицького, 35, прим. 108/4 в літ. «З»";
+// Change to "green" to restore the previous 21st.dev Electric Aura background.
+const homeHeroBackground = "gray";
 
 const pageImages = {
   about: { mobile: aboutTeamMobile, desktop: aboutTeamDesktop },
@@ -221,10 +224,11 @@ function HomePage() {
     ["Надійність", "Роки роботи на ринку з неухильним дотриманням нормативних вимог."],
     ["Прозорість", "Чесні умови співпраці без прихованих комісій і неочікуваних платежів."]
   ];
+  const HomeHeroBackground = homeHeroBackground === "gray" ? GrayPlasmaBackground : ElectricAura;
   return (
     <>
-      <section className="home-hero">
-        <ElectricAura className="hero-aura" />
+      <section className={`home-hero home-hero--${homeHeroBackground}`}>
+        <HomeHeroBackground className={`hero-aura hero-aura--${homeHeroBackground}`} />
         <div className="hero-wash" />
         <div className="container home-hero-inner">
           <p className="eyebrow hero-reveal">Енергія для відповідального бізнесу</p>
