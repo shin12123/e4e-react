@@ -275,9 +275,9 @@ function HomePage() {
         </div>
       </section>
 
-      <section className="section-space company-section" data-pinned-section>
+      <section className="section-space company-section">
         <div className="container pinned-layout">
-          <div className="pinned-title" data-pin-title>
+          <div className="pinned-title">
             <p className="eyebrow">Про компанію</p>
             <h2>Рухаємо енергію туди, де вона створює цінність.</h2>
           </div>
