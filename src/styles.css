@@ -580,6 +580,13 @@ h1, h2, h3 { text-wrap: balance; }
   .hero-actions { margin-top: 28px; }
 }
 
+@media (max-width: 620px) and (orientation: portrait) {
+  @supports (height: 100lvh) {
+    .home-hero { min-height: max(680px, 100lvh); }
+    .page-hero { min-height: max(540px, 100lvh); }
+  }
+}
+
 @media (hover: none) {
   .button:hover, .header-cta:hover, .accordion-panel:hover, .accordion-panel:focus-visible,
   .story-card-image:hover img, .direction-image:hover img, .carousel-controls button:hover { transform: none; }
